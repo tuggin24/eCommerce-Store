@@ -1,0 +1,56 @@
+<div class="show-mobile">
+    <div>
+        <button (click)="toggleMenu()">
+            <img src="../../../assets/icon_menu.svg" alt="menu">
+        </button>
+        <a href="">
+            <img src="../../../assets/logo_yard_sale.svg" alt="logo">
+        </a>
+        <a href="">
+            <img src="../../../assets/icon_shopping_cart.svg" alt="logo">
+        </a>
+    </div>
+    <div class="side-menu" [ngClass]="{active:activeMenu}">
+        <button (click)="toggleMenu()">Close</button>
+        <ul>
+            <li>
+                <a routerLinkActive="active" routerLink="home">All</a>
+            </li>
+            <li *ngFor="let item of categories">
+                <a routerLinkActive="active" [routerLink]="['/category', item.id]">{{ item.name }}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="hide-mobile">
+    <div>
+        <nav>
+            <a class="logo" href="">
+                <img src="../../../assets/logo_yard_sale.svg" alt="logo">
+            </a>
+            <ul>
+                <li>
+                    <a routerLinkActive="active" routerLink="home">All</a>
+                </li>
+                <li *ngFor="let item of categories">
+                    <a routerLinkActive="active" [routerLink]="['/category', item.id]">{{ item.name }}</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="info">
+            <app-login class="account" *ngIf="!profile; else elseBlock "></app-login>
+            <div *ngIf="profile" class="account">
+                <a routerLink="/profile">{{ emailUser }}</a>
+            </div>
+            <ng-template #elseBlock>
+                <button (click)="logout()">Logout</button>
+            </ng-template>
+            <div>
+                <a href="">
+                    <img src="../../../assets/logo_yard_sale.svg" alt="logo">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
