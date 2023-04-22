@@ -26,7 +26,7 @@ private url: string = `${environment.API_URL}/api/`;
       params = params.set( 'limit', limit );
       params = params.set( 'offset', offset )
     }
-    return this.http.get<Product[]>( `${this.url}/products`, { params, context: checkTime() } ).pipe(
+    return this.http.get<Product[]>( `${this.url}products`, { params, context: checkTime() } ).pipe(
       retry( 3 ),
       map( products => {
         return products.map( item => {
