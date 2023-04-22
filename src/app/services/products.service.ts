@@ -46,7 +46,7 @@ private url: string = `${environment.API_URL}/api/`;
       params = params.set( 'offset', offset );
     }
 
-    return this.http.get<Product[]>( `${this.url}/categories/${categoryId}/products`, { params } );
+    return this.http.get<Product[]>( `${this.url}categories/${categoryId}/products`, { params } );
   }
 
   fetchReadAndUpdate( id: string, dtoChange: UpdateProductDTO ){
@@ -57,7 +57,7 @@ private url: string = `${environment.API_URL}/api/`;
   }
 
   getProduct( id: string ){
-    return this.http.get<Product>( `${this.url}/products/${id}` ).pipe(
+    return this.http.get<Product>( `${this.url}products/${id}` ).pipe(
       catchError( (error: HttpErrorResponse)  => {
         if(error.status === HttpStatusCode.Conflict){
           return throwError( () => 'Algo esta fallando en el server');
@@ -78,14 +78,14 @@ private url: string = `${environment.API_URL}/api/`;
   }
 
   create( dto: CreateProductDTO ){
-    return this.http.post<Product>( `${this.url}/products`, dto );
+    return this.http.post<Product>( `${this.url}products`, dto );
   }
 
   update( id: string, dto: UpdateProductDTO ){
-    return this.http.put<Product>( `${this.url}/products/${id}`, dto );
+    return this.http.put<Product>( `${this.url}products/${id}`, dto );
   }
 
   delete( id: string ){
-    return this.http.delete<boolean>(`${this.url}/products/${id}`);
+    return this.http.delete<boolean>(`${this.url}products/${id}`);
   }
 }
