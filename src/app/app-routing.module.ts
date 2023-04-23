@@ -8,16 +8,16 @@ import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
-    path: 'cms',
-    loadChildren: () => import('./cms/cms.module').then( m => m.CmsModule ),
-    canActivate: [AdminGuard]
-  },
-  {
     path: '',
     loadChildren: () => import('./website/website.module').then( m => m.WebsiteModule ),
     data: {
       preload: true
     }
+  },
+  {
+    path: 'cms',
+    loadChildren: () => import('./cms/cms.module').then( m => m.CmsModule ),
+    canActivate: [AdminGuard]
   },
   {
     path: '**', component: NotFoundComponent
