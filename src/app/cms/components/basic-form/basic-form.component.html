@@ -1,57 +1,137 @@
 <form [formGroup]="form" (ngSubmit)="save($event)">
-    <p>
-        Name: {{ nameField?.valid }}
-        <input
-        [ngClass]="{ 'is-valid': nameField, 'is-invalid': isNameFiledInvalid}"
+  <div formGroupName="fullname">
+
+    <mat-form-field appareance="fill">
+      <mat-label>Name: {{ nameField?.value }}</mat-label>
+      <input matInput
         type="text"
+        class="is-valid"
         formControlName="name"
-        placeholder="Escribe aca"
-        >
-        <button [disabled]="nameField?.invalid" (click)="getNameValue()" >Get Value</button>
-        <!-- <code>
-            <pre>
-                {{ name  | json }}
-            </pre>
-        </code> -->
-    </p>
-    <div class="messages" [ngClass]="{ 'active': isNameFiledInvalid }">
-        <p>
-            <strong *ngIf="nameField?.touched && nameField?.hasError('required')">Este campo es requerido</strong>
-        </p>
-        <p>
-            <strong *ngIf="nameField?.touched && nameField?.hasError('maxlength')">Debe tener mÃ¡ximo 10 caracteres</strong>
-        </p>
-    </div>
-    
-    <p>
-        Email: {{ emailField?.value }}
-        <input type="email" formControlName="email" placeholder="Email">
-    </p>
-    
-    <p>
-        Telephone: {{ telField?.value }}
-        <input type="tel" formControlName="tel" placeholder="Telefono">
-    </p>
-    
-    <p>
-        Color: {{ colorField?.value }}
-        <input type="color" formControlName="color" placeholder="Color">
-    </p>
-    
+        placeholder="Writes here!"
+        [ngClass]="{'is-valid': nameField?.valid, 'is-invalid': nameField?.invalid}"
+      >
+      <mat-icon *ngIf="nameField?.valid" matSuffix>done</mat-icon>
+      <mat-icon *ngIf="nameField?.invalid" matSuffix>close</mat-icon>
+      <mat-error *ngIf="nameField?.touched && nameField?.hasError('required')">
+        Este campo es requerido
+      </mat-error>
+      <mat-error *ngIf="nameField?.touched && nameField?.hasError('maxlength')">
+        Debe tener maximo 10 caracteres
+      </mat-error>
+      <mat-error *ngIf="nameField?.touched && nameField?.hasError('pattern')">
+        No debe caracteres
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appareance="outline">
+      <mat-label>Last Name: {{ lastField?.value }}</mat-label>
+      <input matInput
+        type="text"
+        formControlName="last"
+        placeholder="Writes here!"
+      >
+      <mat-icon *ngIf="lastField?.valid" matSuffix>done</mat-icon>
+      <mat-icon *ngIf="lastField?.invalid" matSuffix>close</mat-icon>
+      <mat-error *ngIf="lastField?.touched && lastField?.hasError('required')">
+        Este campo es requerido
+      </mat-error>
+      <mat-error *ngIf="lastField?.touched && lastField?.hasError('maxlength')">
+        Debe tener maximo 10 caracteres
+      </mat-error>
+      <mat-error *ngIf="lastField?.touched && lastField?.hasError('pattern')">
+        No debe caracteres
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <mat-form-field appareance="outline">
+    <mat-label>Email: {{ emailField?.value }}</mat-label>
+    <input matInput
+      type="email"
+      formControlName="email"
+      placeholder="Writes here!"
+    >
+    <mat-icon *ngIf="emailField?.valid" matSuffix>done</mat-icon>
+    <mat-icon *ngIf="emailField?.invalid" matSuffix>close</mat-icon>
+    <mat-error *ngIf="emailField?.touched && emailField?.hasError('required')">
+      Este campo es requerido
+    </mat-error>
+    <mat-error *ngIf="emailField?.touched && emailField?.hasError('email')">
+      No es un email valido
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appareance="outline">
+    <mat-label>Telephone: {{ telField?.value }}</mat-label>
+    <input matInput
+      type="tel"
+      formControlName="tel"
+      placeholder="Writes here!"
+    >
+    <mat-icon *ngIf="telField?.valid" matSuffix>done</mat-icon>
+    <mat-icon *ngIf="telField?.invalid" matSuffix>close</mat-icon>
+    <mat-error *ngIf="telField?.touched && telField?.hasError('required')">
+      Este campo es requerido
+    </mat-error>
+    <mat-error *ngIf="telField?.touched && telField?.hasError('minlength')">
+      Debe tener minimo 11 caracteres
+    </mat-error>
+    <mat-error *ngIf="telField?.touched && telField?.hasError('maxlength')">
+      Debe tener maximo 11 caracteres
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appareance="outline">
+    <mat-label>Color: {{ colorField?.value }}</mat-label>
+    <input matInput
+      type="color"
+      formControlName="color"
+      placeholder="Writes here!"
+    >
+  </mat-form-field>
+
+  <mat-form-field appareance="outline">
+    <mat-label>Date: {{ dateField?.value }}</mat-label>
+    <input matInput
+      formControlName="date"
+      [matDatepicker]="picker"
+    >
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="dateField?.touched && dateField?.hasError('required')">
+      Este campo es requerido
+    </mat-error>
+  </mat-form-field>
+
     <p>
         Date: {{ dateField?.value }}
         <input type="date" formControlName="date" placeholder="Date">
     </p>
-    
+
     <p>
-        Number: {{ numberField?.value }}
-        <input type="number" formControlName="number" placeholder="Numero">
+        Edad: {{ numberField?.value }}
+        <input type="number" formControlName="number" placeholder="Edad"
+        [ngClass]="{ 'is-valid': numberField?.touched && numberField?.valid, 'is-invalid': numberField?.touched && numberField?.invalid}">
     </p>
+
+    <div class="messages" [ngClass]="{ 'active': numberField?.touched && numberField?.invalid }">
+      <p>
+        <strong *ngIf="numberField?.hasError('required')">Este campo es requerido</strong>
+      </p>
+      <p>
+        <strong *ngIf="numberField?.hasError('min')">Debe ser mayor de edad.</strong>
+      </p>
+      <p>
+        <strong *ngIf="numberField?.hasError('max')">Debe ser menor de 100 años.</strong>
+      </p>
+    </div>
     <p>
         Area: {{ areaField?.value }}
         <textarea formControlName="area"></textarea>
     </p>
-    
+
     <p>
         Category {{ categoryField?.value }}
         <select formControlName="category">
@@ -61,7 +141,7 @@
             <option value="category-4">Category 4</option>
         </select>
     </p>
-    
+
     <p>
         Tags {{ tagField?.value }}
         <select formControlName="tag" multiple>
@@ -71,12 +151,18 @@
             <option value="category-4">Tag 4</option>
         </select>
     </p>
-    
+
     <p>
         Aggre {{ agreeField?.value }}
-        <input type="checkbox" formControlName="agree">
+        <input type="checkbox" formControlName="agree" (change)="vervalor()">
     </p>
-    
+
+    <div class="messages" [ngClass]="{ 'active': agreeField?.touched && agreeField?.invalid }">
+      <p>
+        <strong *ngIf="agreeField?.touched && agreeField?.hasError('requiredtrue')">Este campo es requerido</strong>
+      </p>
+    </div>
+
     <p>
         Gender {{ genderField?.value }}
         <label>
@@ -92,7 +178,7 @@
             Other:
         </label>
     </p>
-    
+
     <p>
         Zonas {{ zonasField?.value }}
         <label>
@@ -110,7 +196,8 @@
     </p>
 
     <p>
-        <button type="submit" [disabled]="form.invalid">Save</button>
+        <!-- <button type="submit" [disabled]="form.invalid">Save</button> -->
+        <button type="submit">Save</button>
     </p>
 </form>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-basic-form',
@@ -7,21 +7,23 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./basic-form.component.css']
 })
 export class BasicFormComponent implements OnInit{
-  
-  form = new FormGroup({
-    name: new FormControl('', [ Validators.required, Validators.maxLength(10) ]),
-    email: new FormControl(''),
-    tel: new FormControl(''),
-    color: new FormControl('#F01010'),
-    date: new FormControl(''),
-    number: new FormControl(''),
-    area: new FormControl(''),
-    category  : new FormControl('category-1'),
-    tag: new FormControl(),
-    agree: new FormControl(false),
-    gender: new FormControl(''),
-    zonas: new FormControl('')
-  });
+
+  form: FormGroup = new FormGroup({});
+
+  // form = new FormGroup({
+  //   name: new FormControl('', [ Validators.required, Validators.maxLength(10) ]),
+  //   email: new FormControl(''),
+  //   tel: new FormControl(''),
+  //   color: new FormControl('#F01010'),
+  //   date: new FormControl(''),
+  //   number: new FormControl(''),
+  //   area: new FormControl(''),
+  //   category  : new FormControl('category-1'),
+  //   tag: new FormControl(),
+  //   agree: new FormControl(false),
+  //   gender: new FormControl(''),
+  //   zonas: new FormControl('')
+  // });
 
   // nameField = new FormControl('', [ Validators.required, Validators.maxLength(10) ]);
   // emailField = new FormControl('');
@@ -37,23 +39,65 @@ export class BasicFormComponent implements OnInit{
   // genderField = new FormControl('');
   // zonasField = new FormControl('');
 
-  constructor(){
-
+  constructor(
+    private formBuilder: FormBuilder
+  ){
+    this.biuldForm();
   }
 
   ngOnInit(): void {
-      this.nameField?.valueChanges //->>>Esto es un observable que te mantiene atento a los cambios de ese campo
+      // this.nameField?.valueChanges //->>>Esto es un observable que te mantiene atento a los cambios de ese campo
+      // .subscribe({
+      //   next: (v) => {
+      //     console.log('RealtimeValue->',v)
+      //   }
+      // });
+
+      // this.form.valueChanges
+      // .subscribe((value) =>{
+      //   console.log('CambiosForm->',value);
+      // })
+  }
+
+  vervalor(){
+    this.agreeField?.valueChanges //->>>Esto es un observable que te mantiene atento a los cambios de ese campo
       .subscribe({
         next: (v) => {
-          console.log('RealtimeValue->',v)
+          console.log('agreeField->',v)
         }
       });
+      console.log('touched->',this.agreeField?.touched);
+      console.log('valid->',this.agreeField?.valid);
+      console.log('valid->',this.agreeField);
+  }
+
+  private biuldForm(){
+    this.form = this.formBuilder.group({
+      fullname: this.formBuilder.group({
+        name: [ '', [ Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/) ] ],
+        last: [ '', [ Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/) ] ],
+      }),
+      email: [ '', [Validators.required,Validators.email] ],
+      tel: [ '', [Validators.required, Validators.minLength(11), Validators.maxLength(11)] ],
+      color: [ '#F01010' ],
+      date: [ '', Validators.required ],
+      number: [ '18', [Validators.required, Validators.min(18), Validators.max(100)] ],
+      area: [ '' ],
+      category  : [ '' ],
+      tag: [ ],
+      agree: [ false, [Validators.requiredTrue] ],
+      gender: [ '' ],
+      zonas: [ '' ]
+    });
   }
 
   save(event:any){
-    console.log(this.form.value);
-    console.log(this.form.valid);
-    console.log(this.form.invalid);
+    if(this.form.valid){
+      console.log(this.form.value);
+      console.log(this.form.valid);
+    }else{
+      this.form.markAllAsTouched();
+    }
   }
 
   getNameValue(){
@@ -61,7 +105,11 @@ export class BasicFormComponent implements OnInit{
   }
 
   get nameField(){
-    return this.form.get('name');
+    return this.form.get('fullname.name');
+  }
+
+  get lastField(){
+    return this.form.get('fullname.last');
   }
 
   get emailField(){
