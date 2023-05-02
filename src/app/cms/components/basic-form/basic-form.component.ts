@@ -66,9 +66,6 @@ export class BasicFormComponent implements OnInit{
           console.log('agreeField->',v)
         }
       });
-      console.log('touched->',this.agreeField?.touched);
-      console.log('valid->',this.agreeField?.valid);
-      console.log('valid->',this.agreeField);
   }
 
   private biuldForm(){
