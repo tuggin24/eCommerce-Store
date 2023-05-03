@@ -1,27 +1,51 @@
 <div class="principal">
   <div class="secundario">
-    <p class="titulo">Yard Sale</p>
-    <form>
-      <div class="contenedor">
+    <h1 class="titulo">Yard Sale</h1>
+    <div class="contenedor">
+      <form [formGroup]="form">
         <mat-form-field>
           <mat-label>Usuario</mat-label>
           <input matInput
-          type="text">
+          type="text"
+          formControlName="user">
+          <mat-icon *ngIf="userField?.valid" matSuffix class="valido">check_circle</mat-icon>
+          <mat-icon *ngIf="userField?.invalid" matSuffix class="invalido">error</mat-icon>
+          <mat-error *ngIf="userField?.hasError('required')">
+            El usuario es obligatorio.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Contraseña</mat-label>
+          <mat-label>Contrase&ntilde;a</mat-label>
           <input matInput
-          type="password">
+          [type]="showPass ? 'text' : 'password'"
+          formControlName="password">
+
+          <mat-icon *ngIf="!showPass" (click)="verpass()" matSuffix>visibility</mat-icon>
+          <mat-icon *ngIf="showPass" (click)="verpass()" matSuffix>visibility_off</mat-icon>
+
+          <mat-error *ngIf="passwordField?.hasError('required')">
+            El usuario es obligatorio.
+          </mat-error>
+
+          <mat-error *ngIf="passwordField?.hasError('minlength')">
+            La longitud minima en 8.
+          </mat-error>
+
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Confirmar contraseña</mat-label>
+          <mat-label>Confirmar contrase&ntilde;a</mat-label>
           <input matInput
-          type="password">
+          type="password"
+          formControlName="password2">
         </mat-form-field>
-      </div>
-    </form>
-    <p class="registro">Ya tienes usuario? inicia sesión</p>
+
+        <div>
+          <button mat-raised-button color="primary" class="btn1" type="submit">Registrarse</button>
+        </div>
+      </form>
+    </div>
+    <p class="registro">Ya tienes usuario? inicia sesi&oacute;n</p>
   </div>
 </div>

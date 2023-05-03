@@ -1,20 +1,75 @@
 .principal {
-  width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: auto;
+  height: auto;
+  background: rgb(21,17,62);
+  background: linear-gradient(38deg, rgba(21,17,62,1) 0%, rgba(56,43,119,1) 50%, rgba(21,17,62,1) 100%);
 }
 
 .secundario {
-  width: 100%;
-  height: 100%;
-  padding: 20%;
-  border-radius: .5%;
-  background: rgb(43, 38, 38);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 1200px;
+  height: 600px;
+  border-radius: 30px;
+  margin: 10% 5% 10% 5%;
+  padding: 5%;
+  background: #15113e;
+  background: linear-gradient(38deg, rgba(21,17,62,1) 0%, rgba(56,43,119,1) 50%, rgba(21,17,62,1) 100%);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .contenedor{
-  width: 100%;
-  height: 100%;
-  padding: 50%;
-  border-radius: .5%;
-  background: rgb(44, 43, 43);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 5%;
+  width: 400px;
+  border-radius: 30px;
+  background: #2e2360;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+mat-form-field {
+  width: 300px;
+}
+
+h1{
+  color: white;
+  font-family: cursive;
+  font-weight: bold;
+}
+
+p{
+  padding-top: 5%;
+  color: white;
+  opacity: .75;
+  font-style: normal;
+}
+
+.btn1 {
+  background: rgba(21,17,62,1) !important;
+}
+
+.valido{
+  color: green;
+}
+
+.invalido {
+  color: red;
+}
+
+.invalido:hover{
+  transform: scale(1.5);
+  transition: all 0.5s ease;
+}
+
+.valido:hover{
+  transform: scale(1.5);
+  transition: all 0.5s ease;
 }

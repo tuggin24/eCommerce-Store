@@ -16,6 +16,7 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { LayoutComponent } from './components/layout/layout.component';
 import { NavComponent } from './components/nav/nav.component';
 import { LoginComponent } from './components/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { LoginComponent } from './components/login/login.component';
     WebsiteRoutingModule,
     SwiperModule,
     SharedModule,
-    QuicklinkModule
+    QuicklinkModule,
+    ReactiveFormsModule
   ]
 })
 export class WebsiteModule { }
