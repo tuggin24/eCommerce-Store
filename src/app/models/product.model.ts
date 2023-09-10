@@ -10,7 +10,8 @@ export interface Product {
 
 export interface Category {
   id: string;
-  name: string
+  name: string;
+  image: string;
 }
 
 export interface CreateProductDTO extends Omit< Product, 'id' | 'category' > {

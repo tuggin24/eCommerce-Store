@@ -22,4 +22,12 @@ export class CategoriesService {
     }
     return this.http.get<Category[]>( `${this.url}`, {params} );
   }
+
+  createCategory( data: Partial<Category> ){
+    return this.http.post<Category>(`https://api.escuelajs.co/api/v1/categories`, data );
+  }
+
+  updateCategory( id: string,  data: Partial<Category> ){
+    return this.http.put<Category>(`https://api.escuelajs.co/api/v1/categories/${id}`, data );
+  }
 }

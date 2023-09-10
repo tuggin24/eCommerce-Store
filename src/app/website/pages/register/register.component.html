@@ -3,43 +3,86 @@
     <h1 class="titulo">Yard Sale</h1>
     <div class="contenedor">
       <form [formGroup]="form">
-        <mat-form-field>
-          <mat-label>Usuario</mat-label>
-          <input matInput
-          type="text"
-          formControlName="user">
-          <mat-icon *ngIf="userField?.valid" matSuffix class="valido">check_circle</mat-icon>
-          <mat-icon *ngIf="userField?.invalid" matSuffix class="invalido">error</mat-icon>
-          <mat-error *ngIf="userField?.hasError('required')">
-            El usuario es obligatorio.
-          </mat-error>
-        </mat-form-field>
+        <div>
+          <mat-form-field>
+            <mat-label>Usuario</mat-label>
+            <input matInput
+            type="text"
+            formControlName="user">
+            <mat-icon *ngIf="userField?.valid" matSuffix class="valido">check_circle</mat-icon>
+            <mat-icon *ngIf="userField?.invalid" matSuffix class="invalido">error</mat-icon>
+            <mat-error *ngIf="userField?.hasError('required')">
+              El usuario es obligatorio.
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Contrase&ntilde;a</mat-label>
+            <input matInput
+            [type]="showPass ? 'text' : 'password'"
+            formControlName="password">
+  
+            <mat-icon *ngIf="!showPass" (click)="verpass()" matSuffix>visibility</mat-icon>
+            <mat-icon *ngIf="showPass" (click)="verpass()" matSuffix>visibility_off</mat-icon>
+            
+            <div class="errors">
+              <mat-error *ngIf="passwordField?.hasError('required')">
+                La contrase&ntilde;a es obligatoria
+              </mat-error>
+    
+              <mat-error *ngIf="passwordField?.hasError('minlength')">
+                La longitud minima en 8
+              </mat-error>
+    
+              <mat-error *ngIf="passwordField?.hasError('invalid_password')">
+                Debe contener un n&uacute;mero
+              </mat-error>
+            </div>
+  
+          </mat-form-field>
+        </div>
 
-        <mat-form-field>
-          <mat-label>Contrase&ntilde;a</mat-label>
-          <input matInput
-          [type]="showPass ? 'text' : 'password'"
-          formControlName="password">
+        <div>
 
-          <mat-icon *ngIf="!showPass" (click)="verpass()" matSuffix>visibility</mat-icon>
-          <mat-icon *ngIf="showPass" (click)="verpass()" matSuffix>visibility_off</mat-icon>
+          <mat-form-field>
+            <mat-label>Confirmar contrase&ntilde;a</mat-label>
+            <input matInput
+            [type]="showPass2 ? 'text' : 'password'"
+            formControlName="confirmPassword">
+  
+            <mat-icon *ngIf="!showPass2" (click)="verpass2()" matSuffix>visibility</mat-icon>
+            <mat-icon *ngIf="showPass2" (click)="verpass2()" matSuffix>visibility_off</mat-icon>
+            
+            
+            <div class="errors">
+              <mat-error *ngIf="confirmPasswordField?.hasError('required')">
+                La contrase&ntilde;a es obligatoria
+              </mat-error>
+    
+              <mat-error *ngIf="form.errors && form.hasError('match_error')">
+                Las contrase&ntilde;as no coinciden
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
 
-          <mat-error *ngIf="passwordField?.hasError('required')">
-            El usuario es obligatorio.
-          </mat-error>
-
-          <mat-error *ngIf="passwordField?.hasError('minlength')">
-            La longitud minima en 8.
-          </mat-error>
-
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Confirmar contrase&ntilde;a</mat-label>
-          <input matInput
-          type="password"
-          formControlName="password2">
-        </mat-form-field>
+        <div>
+          <mat-radio-group formControlName="type" aria-label="Select a option">
+            <mat-radio-button value="company">Company</mat-radio-button>
+            <mat-radio-button value="customer">Customer</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Company Name</mat-label>
+            <input matInput placeholder="Company" formControlName="companyName" type="text">
+            <div class="errors">
+              <mat-error *ngIf="companyNameField?.hasError('required')">
+                La compa&ntilde;ia es obligatoria
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
 
         <div>
           <button mat-raised-button color="primary" class="btn1" type="submit">Registrarse</button>

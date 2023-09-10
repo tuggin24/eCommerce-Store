@@ -31,7 +31,8 @@ export class ProductsComponent implements OnInit {
     title: '',
     category: {
       id: '',
-      name: ''
+      name: '',
+      image: ''
     },
     description: ''
   };

@@ -3,6 +3,7 @@ import { ExitGuard, OnExit } from '../../../guards/exit.guard';
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { MyValidator } from 'src/app/shared/validators/validator';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,7 @@ export class RegisterComponent implements OnExit, OnInit{
 
   form: FormGroup = new FormGroup({});
   showPass: Boolean = false;
+  showPass2: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder
@@ -30,14 +32,33 @@ export class RegisterComponent implements OnExit, OnInit{
   builderForm(){
     this.form = this.formBuilder.group({
       user: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      password2: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.minLength(8), MyValidator.validPassword]],
+      confirmPassword: ['', [Validators.required]],
+      type: ['company', [Validators.required]],
+      companyName: ['', [Validators.required]],
+    }, {
+      validators: MyValidator.matchPassword
     });
-    console.log(this.form)
+    
+    this.typeField?.valueChanges
+    .subscribe({
+      next: (v) => {
+        if(v === 'company'){
+          this.companyNameField?.setValidators([Validators.required]);
+        }else{
+          this.companyNameField?.setValidators(null);
+        }
+        this.companyNameField?.updateValueAndValidity();
+      }
+    })
   }
 
   verpass(){
-   this.showPass = !this.showPass;
+    this.showPass = !this.showPass;
+  }
+
+  verpass2(){
+    this.showPass2 = !this.showPass2;
   }
 
   enviar(){
@@ -54,8 +75,14 @@ export class RegisterComponent implements OnExit, OnInit{
   get passwordField(){
     return this.form.get('password');
   }
-  get password2Field(){
-    return this.form.get('password2');
+  get confirmPasswordField(){
+    return this.form.get('confirmPassword');
+  }
+  get typeField(){
+    return this.form.get('type');
+  }
+  get companyNameField(){
+    return this.form.get('companyName');
   }
 
 

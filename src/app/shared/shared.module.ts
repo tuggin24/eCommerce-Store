@@ -9,7 +9,7 @@ import { ReversePipe } from './pipes/reverse.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { VocalToNumberPipe } from './pipes/vocal-to-number.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
-import { RouterModule } from '@angular/router'
+import { RouterModule } from '@angular/router';
 
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';

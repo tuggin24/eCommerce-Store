@@ -7,7 +7,8 @@ import { GridComponent } from './pages/grid/grid.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { BasicFormComponent } from './components/basic-form/basic-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../shared/shared.module'
+import { SharedModule } from '../shared/shared.module';
+import { CategoryFormComponent } from './components/category-form/category-form.component'
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SharedModule } from '../shared/shared.module'
     TasksComponent,
     GridComponent,
     LayoutComponent,
-    BasicFormComponent
+    BasicFormComponent,
+    CategoryFormComponent
   ],
   imports: [
     CommonModule,

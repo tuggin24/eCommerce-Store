@@ -1,0 +1,32 @@
+<form [formGroup]="form" (ngSubmit)="saveCategory()">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Categoría</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-xs">
+                    <mat-form-field>
+                        <mat-label>Nombre</mat-label>
+                        <input matInput placeholder="Nombre" formControlName="name" type="text">
+                        <mat-error *ngIf="nombreField?.touched && nombreField?.hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs">   
+                    <img *ngIf="imageField?.value" [src]="imageField?.value">          
+                    <input (change)="uploadFile($event)" placeholder="Imagen" type="file">
+                    <mat-error *ngIf="imageField?.touched && imageField?.hasError('required')">
+                        Este campo es requerido
+                    </mat-error>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button type="submit">Guardar Categoría</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
